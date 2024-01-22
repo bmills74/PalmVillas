@@ -1,0 +1,71 @@
+﻿@page
+@model PalmVillas.Pages.myBookings.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px; /* Optional: Add some margin to separate from other elements */
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #D6EEEE;
+    }
+</style>
+<br/>
+<h1>Bookings</h1>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].Price)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].Villa)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Booking) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Villa.Name)
+            </td>
+           
+        </tr>
+}
+    </tbody>
+</table>

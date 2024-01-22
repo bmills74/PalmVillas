@@ -1,0 +1,13 @@
+﻿@model string
+
+<div class="w3-dropdown-hover w3-right w3-margin-2">
+    <img src="@Model" class="profile-pic" />
+    <div class="w3-dropdown-content w3-white w3-card-4" style="right:0">
+        <a class="" asp-page="/Account/Profile">Profile</a>
+        <a class="" asp-page="/mybookings/index">My bookings</a>
+        <a class="" asp-page="/Index" asp-page-handler="logout">Logout</a>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,128 @@
+﻿@page "/villa/details/{villaId:int}"
+@model PalmVillas.Pages.VillaPages.DetailsModel
+@{
+}
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/rangePlugin.min.js" integrity="sha512-44bA1YzQUqHACfLj2v0wEdX9z6EmlALcta6ENgPZnxH/aIiuBw92he+M/51kTCueY/2DsqEYM7mCwGUyO2q79w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/confetti.css">
+<script src="~/js/villa.js"></script>
+
+<style>
+    .flatpickr-disabled {
+        color: #bfbfbf !important;
+        text-decoration: line-through;
+    }
+
+</style>
+<script>
+    var price = @Model.Villa.Price;
+    var villaId = @Model.Villa.Id;
+    var cleaning = 30;
+    var startDate = "";
+    var endDate = "";
+    var disableRanges = @Json.Serialize(@Model.RangesBooked);
+</script>
+
+
+@{
+    ViewData["Title"] = "Villa details";
+}
+
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        @foreach (var image in Model.Images)
+        {
+            <div class="col-4">
+                <img src="@image" class="img-fluid" alt="Image">
+            </div>
+
+        }
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Details</h2>
+            <div class="fst-italic amenities-text">
+                <label class="">Price per night: <span>$@Model.Villa.Price</span></label>
+            </div>
+            <div class="fst-italic amenities-text">
+                <label>Bedrooms: <span>@Model.Villa.Rooms</span></label>
+            </div>
+
+            <br />
+
+            <p>
+               @Model.Villa.Description
+            </p>
+
+          
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card border-secondary mb-3">
+                <div class="card-header">Add dates for pricing</div>
+                <div class="card-body text-secondary">
+
+                    <div class="row">
+                        <div class="col">
+                            <label>Check in</label>
+                            <input class="flatpickr check-in date-input" type="text" name="check-in" data-input />
+                        </div>
+                        <div class="col">
+                            <label>Check out</label>
+                            <div class="children-inline">
+                                <input type="text" class="check-out date-input form-control" name="check-out" data-toggle />
+                                <a id="clear-button" href="#" class="ms-3" style="margin-top:20px;">clear</a>
+                            </div>
+
+
+                        </div>
+
+
+                        <div id="pricing-div" class="border-dark hidden" style="color:rgb(34, 34, 34)">
+                            <br />
+                            <div class="row">
+                                <div id="price-per-night" class="col text-decoration-underline price-calc">
+                                </div>
+                                <div id="total" class="col justify-content-sm-end price-calc">
+                                    $2300
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-decoration-underline">
+                                    Cleaning fee:
+                                </div>
+                                <div class="col justify-content-sm-end" id="cleaning">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-decoration-underline">
+                                    Total:
+                                </div>
+                                <div id="grand-total" class="col justify-content-sm-end price-calc">
+                                    $30
+                                </div>
+                            </div>
+                            <br />
+                            <div class="btn btn-primary btn-lg" id="reserve-button">Booking Summary</div>
+                            <div class="fst-italic amenities-text">
+                                (You won't be charged yet)
+                            </div>
+                           
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

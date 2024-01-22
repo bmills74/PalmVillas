@@ -1,0 +1,22 @@
+﻿@page
+@model AccessDeniedModel
+@{
+    ViewData["Title"] = "Access denied";
+    
+}
+
+<br/>
+<header>
+    <div class="container">
+        <h1 class="text-danger">@ViewData["Title"]</h1>
+        <p class="text-danger">You do not have access to this resource.</p>
+        <ul>
+            <li>For testing purposes you can elevate your permissions in your profile once logged in.</li>
+            <li>In a production enivronment, these rights will only be assignable by an admin under the 'users' link</li>
+            <li>These links would also be invisible to users without rights in production environment</li>
+        </ul>
+    </div>
+   
+</header>
+
+

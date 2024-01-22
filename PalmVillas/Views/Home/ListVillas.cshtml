@@ -1,0 +1,141 @@
+﻿@model PalmVillas.Models.Villas.VillaListModel
+@*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">*@
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/confetti.css">
+<script src="~/js/booking.js"></script>
+
+<style>
+    .flatpickr-disabled{
+        color:#bfbfbf!important;
+         text-decoration: line-through;
+    }
+
+    .card {
+  background-image: linear-gradient(  #ff6600,  #ffc34d);
+}
+</style>
+
+
+@{
+    ViewData["Title"] = "Villas";
+}
+
+
+<div class="w3-container">
+
+    <div class="row">
+
+
+        @foreach (var villa in Model.VillaItems)
+        {
+            <div class="col">
+
+                <div class="card border-2 mt-5" style="width:400px">
+                    <div id="carouselExampleIndicators_@villa.Id" class="carousel slide">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators_@villa.Id" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators_@villa.Id" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators_@villa.Id" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        @{
+                            var count = 0;
+                        }
+
+                        <div class="carousel-inner">
+                            @foreach (var image in villa.Images)
+                            {
+                                count++;
+                                var activeClass = "active";
+                                if (count > 1)
+                                {
+                                    activeClass = "";
+                                }
+
+                                <div class="carousel-item @activeClass">
+                                    <img src="@image" class="img-fluid d-block w-100 card-img-top" alt="...">
+                                </div>
+
+
+                            }
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators_@villa.Id" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next text-black" type="button" data-bs-target="#carouselExampleIndicators_@villa.Id" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                    <div class="card-body">
+                        <h4 class="card-title">@villa.Name</h4>
+                        <div class="amenities-text italics">Bedrooms: <span>@villa.Rooms</span></div>
+                        <div class="amenities-text italics">Price per night: <span>@villa.Price</span></div>
+                        @*<p class="card-text">Some example text.</p>*@
+                        <a href="@Url.Action("Details","Villa",new {VillaId=villa.Id})" data-villa-id="@villa.Id"
+                           class="btn btn-primary">Details</a>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="dateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" bs-focus="false">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Available dates</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="book-container">
+                    <form action="@Url.Action("Book","Booking")" method="post">
+                        <div>
+                            <input name="Date" type="text" class="flatpicker" id="flatpicker" />
+                        </div>
+                        <input type="submit" class="btn btn-default btn-primary" value="Book">
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<!-- Trigger/Open the Modal -->
+<button onclick="document.getElementById('id01').style.display='block'"
+        class="w3-button">
+    Open Modal
+</button>
+
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+
+        <header class="w3-container w3-teal">
+            <span onclick="document.getElementById('id01').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
+            <h2>Modal Header</h2>
+        </header>
+
+        <div class="w3-container">
+
+
+
+            <p>Some text..</p>
+        </div>
+
+        <footer class="w3-container w3-teal">
+            <p>Modal Footer</p>
+        </footer>
+
+    </div>
+</div>*@

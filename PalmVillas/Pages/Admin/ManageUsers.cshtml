@@ -1,0 +1,94 @@
+﻿@page
+@model PalmVillas.Pages.Admin.ManageUsersModel
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<div class="container border mt-5">
+    <h2>Users</h2>
+    <form asp-page="./ManageUsers" method="get">
+        <div class="form-actions no-color">
+            <p>
+                Find by name:
+                <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+                <input type="submit" value="Search" class="btn btn-primary" /> |
+                <a asp-page="./ManageUsers">Back to full List</a>
+            </p>
+        </div>
+    </form>
+    <form method="post">
+         <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-md-3">
+                        @Html.DisplayNameFor(model => model.Users[0].Name)
+                    </th>
+
+                    @foreach (var role in Model.SystemRoles)
+                    {
+                        <th class="col-md-2">
+                            @role.Name
+                        </th>
+                    }
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.Users.Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.Users[i].Name)
+                            <input type="hidden" asp-for="@Model.Users[i].UserId" />
+                        </td>
+
+
+                        @for (var k = 0; k < Model.Users[i].InRoles.Count(); k++)
+                        {
+                            <td>
+
+                                <input type="hidden" asp-for="@Model.Users[i].InRoles[k].Key" />
+                                <input asp-for="@Model.Users[i].InRoles[k].Value" />
+                            </td>
+                        }
+
+                    </tr>
+                }
+            </tbody>
+        </table> 
+        
+        <input type="submit">
+    </form>
+
+   
+   
+
+    @{
+        var prevDisabled = !Model.Users.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.Users.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-page="./ManageUsers"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Users.PageIndex - 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-primary @prevDisabled">
+        Previous
+    </a>
+    <a asp-page="./ManageUsers"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Users.PageIndex + 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-primary @nextDisabled">
+        Next
+    </a>
+
+</div>
+

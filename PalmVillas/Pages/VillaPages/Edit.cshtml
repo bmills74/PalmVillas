@@ -1,0 +1,83 @@
+﻿@page
+@model PalmVillas.Pages.VillaPages.EditModel
+@{
+}
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+<div class="container">
+    <h3>Edit</h3>
+    <form method="post" enctype="multipart/form-data">
+        <input asp-for="Villa.Id" hidden/>
+        <input asp-for="Villa.Images" hidden />
+        <div class="row">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-2">
+                    <label asp-for="Villa.Name" class="control-label"></label>
+                    <input asp-for="Villa.Name" class="form-control" />
+                    <span asp-validation-for="Villa.Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-2">
+                    <label asp-for="Villa.Price" class="control-label">Price per night</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">$</span>
+                        </div>
+                        <input asp-for="Villa!.Price" type="number" class="form-control" id="price" />
+
+                    </div>
+                    <span asp-validation-for="Villa.Price" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="Villa.Rooms" class="control-label">Number of rooms</label>
+                    <input asp-for="Villa.Rooms" class="form-control" />
+                    <span asp-validation-for="Villa.Rooms" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="Villa.Description" class="control-label"></label>
+                    <textarea asp-for="Villa.Description" class="form-control"></textarea>
+                    <span asp-validation-for="Villa.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+
+            <div class="col-md-6">                
+                <div class="form-group">
+                    <div>
+                        <img id="image1" alt="" class="img-fluid" style="width:60%" src="@Model.Images[0]" />
+                        <input type="file" class="mb-3" asp-for="Image1"
+                               onchange="document.getElementById('image1').src = window.URL.createObjectURL(this.files[0])" />
+                    </div>
+
+                    <div>
+                        <img id="image2" src="@Model.Images[1]" class="img-fluid" style="width:60%" />
+                        <input type="file" asp-for="Image2" class="mb-3"
+                               onchange="document.getElementById('image2').src = window.URL.createObjectURL(this.files[0])">
+                    </div>
+
+                    <div>
+                        <img id="image3" src="@Model.Images[2]" class="img-fluid" style="width:60%" />
+                        <input type="file" asp-for="Image3" class="mb-3"
+                               onchange="document.getElementById('image3').src = window.URL.createObjectURL(this.files[0])">
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

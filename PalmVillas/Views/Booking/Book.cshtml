@@ -1,0 +1,32 @@
+﻿@model Palm.Models.Book.BookView
+@using System.Web;
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/confetti.css">
+<link rel="stylesheet" type="text/css" href="~/css/book.css" />
+<script src="~/js/booking.js"></script>
+
+<script>
+      
+    var disableRanges = @Json.Serialize(@Model.RangesBooked);
+    
+ 
+</script>
+
+<h1>Bookings</h1>
+
+<div class="book-container">
+    <form action="@Url.Action("Book","Booking")" method="post">
+        
+        <div>
+            <input name="Date" type="text" class="flatpicker" id="flatpicker" />
+        </div>
+        <div>
+            <input type="submit" class="btn btn-default btn-primary" value="Book">
+            @*<div type="submit" class="btn btn-default btn-primary">Book</div>*@
+        </div>
+    </form>
+   
+    
+</div>
+

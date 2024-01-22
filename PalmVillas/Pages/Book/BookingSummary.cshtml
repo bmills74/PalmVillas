@@ -1,0 +1,128 @@
+﻿@page
+@model PalmVillas.Pages.Book.BookingSummaryModel
+@{
+}
+
+<script src="~/js/pay.js"></script>
+<script src="https://pay.google.com/gp/p/js/pay.js"
+        onload="">
+</script>
+
+<script>
+    $(function () {
+        onGooglePayLoaded();
+    })
+
+</script>
+
+
+@{
+    var image = Model.Villa.Images.First();
+    var nightsString = String.Format("${0} x {1} nights", Model.Villa.Price, Model.Villa.NumNights);
+    //var subTotal = Model.Villa.Price * Model.Villa.NumNights;
+    var grandTotal = Model.Villa.TotalPrice + 30;
+}
+
+<script>
+    var total = @grandTotal;
+   
+</script>
+
+<div class="container" style="margin-top:4em">
+    <h2>Booking Summary</h2>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card border-2">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h4 class="fw-bold">Your trip</h4>
+                    </div>
+
+                    <h5 class="fw-bold">Dates</h5>
+                    <div>@Model.StartDate.ToString("MMM d") - @Model.EndDate.ToString("MMM d")</div>
+                    <hr />
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <p>
+                            <strong>dev note:</strong> you are not logged in, so this booking will be made as 'guest'.
+                            Guest booking functionality to capture user details would need to be developed in a production environment</p>
+                    }
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+        <div class="col-sm-6">
+            <div class="container">
+                <div class="card border-secondary mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <img src="@image" class="img-fluid d-block w-100 card-img-top" alt="...">
+                            </div>
+                            <div class="col-sm-6">
+                                <h4 class="card-title"><strong>@Model.Villa.Name</strong></h4>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><strong>Rooms:</strong> @Model.Villa.Rooms</li>
+                                    <li class="list-group-item"><strong>Price per night:</strong> $@Model.Villa.Price</li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="pricing-div" class="border-dark" style="color:rgb(34, 34, 34)">
+                            <br />
+                            <div class="row">
+                                <div class="col text-decoration-underline">
+                                    @nightsString
+                                </div>
+                                <div class="col justify-content-sm-end">
+                                    $@Model.Villa.TotalPrice
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-decoration-underline">
+                                    Cleaning fee:
+                                </div>
+                                <div class="col justify-content-sm-end" id="cleaning">
+                                    $30
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-decoration-underline">
+                                    Total:
+                                </div>
+                                <div id="grand-total" class="col justify-content-sm-end price-calc">
+                                    $@grandTotal
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">                            
+                            <input type="hidden" name="Startdate" asp-for="@Model.StartDate" />
+                            <input type="hidden" name="Enddate" asp-for="@Model.EndDate" />
+                            <input type="hidden" name="UserName" asp-for="@Model.UserName" />
+                            <input type="submit" value="Reserve (G pay in production)" class="btn btn-primary"/>
+                        </form>
+                       
+                       @*  <div id="google-button" style="width: 160px; height: 40px;"></div> *@
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

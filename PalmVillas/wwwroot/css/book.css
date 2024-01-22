@@ -1,0 +1,8 @@
+﻿.flatpicker{
+    width: 400px;
+}
+
+.book-container {
+    display: flex;
+    gap: 10px;
+}

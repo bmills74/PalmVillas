@@ -1,0 +1,105 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<script src="https://accounts.google.com/gsi/client" async></script>
+<script src="~/js/jwt-decode.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/layout.js" asp-append-version="true"></script>
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+
+<style>
+
+    body {
+        font-family: "Times New Roman", serif
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: serif;
+        letter-spacing: 5px
+    }
+</style>
+
+<script>
+   
+</script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @Html.AntiForgeryToken()
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Palm</title>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <link rel="stylesheet" type="text/css" href="~/css/w3.css" />
+
+
+</head>
+<body>
+    <div class="w3-top w3-bar w3-border-bottom w3-border-black header-bar w3-khaki">
+
+        @* <a href="#default" class="w3-bar-item w3-padding">Palm Bingin</a>*@
+
+        <div class="w3-right">
+        </div>
+      
+        <a class="active menu-item w3-bar-item w3-padding" asp-page="/Index">Home</a>
+        <a class="menu-item w3-bar-item w3-padding" asp-page="/Villa/ListVillas">Villas</a>        
+
+        @if (User.Identity.IsAuthenticated && true)
+        {
+            @Html.Partial("_Header.cshtml", (string)@TempData.Peek("ProfilePic"))              
+        }
+        else
+        {
+            <div id="profile-div" class="w3-right">
+                <div id="profile">
+                    <div id="g_id_onload"
+                         data-client_id="570036316896-rnfh6r3lc7vi5muflc1sor8045j69s23.apps.googleusercontent.com"
+                         data-context="signin"
+                         data-ux_mode="popup"
+                         data-callback="handleCredentialResponse"
+                         data-auto_prompt="false">
+                    </div>
+
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-shape="rectangular"
+                         data-theme="outline"
+                         data-text="signin_with"
+                         data-size="large"
+                         data-logo_alignment="left">
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+
+    <div class="main-container">
+        @RenderBody()
+    </div>
+
+
+   @*  <div class="w3-container" id="footer">
+
+        &copy; 2023 - Palm - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+    </div> *@
+
+
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

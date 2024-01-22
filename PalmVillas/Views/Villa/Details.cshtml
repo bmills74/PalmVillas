@@ -1,0 +1,183 @@
+﻿@model PalmVillas.Models.Villas.VillaDetailsView
+@*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">*@
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/rangePlugin.min.js" integrity="sha512-44bA1YzQUqHACfLj2v0wEdX9z6EmlALcta6ENgPZnxH/aIiuBw92he+M/51kTCueY/2DsqEYM7mCwGUyO2q79w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/confetti.css">
+<script src="~/js/villa.js"></script>
+
+<style>
+    .flatpickr-disabled {
+        color: #bfbfbf !important;
+        text-decoration: line-through;
+    }
+
+</style>
+<script>
+    var price = @Model.Villa.Price;
+    var villaId = @Model.Villa.Id;
+  
+    var cleaning = 30;
+    var startDate= "";
+    var endDate = "";
+    var disableRanges = @Json.Serialize(@Model.RangesBooked);
+</script>
+
+
+@{
+    ViewData["Title"] = "Villa details";
+}
+
+
+<div class="container">
+    <div class="row">
+        @foreach (var image in Model.Images)
+        {
+            <div class="col-4">
+                <img src="@image" class="img-fluid" alt="Image">
+            </div>
+
+        }
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Description</h2>
+            <div class="fst-italic amenities-text">
+                <label class="">Price per night: <span>$@Model.Villa.Price</span></label>
+            </div>
+            <div class="fst-italic amenities-text">
+                <label>Bedrooms: <span>@Model.Villa.Rooms</span></label>
+           </div>
+           
+            <br/>
+
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+
+             <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+        </div>
+       
+        <div class="col-sm-6">
+            <div class="card border-secondary mb-3">
+                <div class="card-header">Add dates for pricing</div>
+                <div class="card-body text-secondary">
+
+                    <div class="row">
+                        <div class="col">
+                            <label>Check in</label>
+                            <input class="flatpickr check-in date-input" type="text" name="check-in" data-input />
+                        </div>
+                        <div class="col">
+                            <label>Check out</label>
+                            <div class="children-inline">
+                                <input type="text" class="check-out date-input form-control" name="check-out" data-toggle />
+                                <a id="clear-button" href="#" class="ms-3" style="margin-top:20px;">clear</a>
+                            </div>
+                            
+                          
+                        </div>
+
+                       
+                        <div id="pricing-div" class="border-dark hidden" style="color:rgb(34, 34, 34)">
+                            <br />
+                            <div class="row">
+                                <div id="price-per-night" class="col text-decoration-underline price-calc">
+                                   
+                                </div>
+                                <div id="total" class="col justify-content-sm-end price-calc">
+                                    $2300
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-decoration-underline">
+                                    Cleaning fee:
+                                </div>
+                                <div class="col justify-content-sm-end" id="cleaning">
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-decoration-underline">
+                                    Total:
+                                </div>
+                                <div id="grand-total" class="col justify-content-sm-end price-calc">
+                                    $30
+                                </div>
+                            </div>
+                            <br/>
+                           @* <a href="@Url.Action("BookingSummary","Booking",new{VillaId=Model.VillaId})"*@
+                            <div class="btn btn-primary btn-lg" id="reserve-button">Reserve</div>
+                            <div class="fst-italic amenities-text">
+                                (You won't be charged yet)
+                            </div>
+                            <h3>prototype info</h3>
+                            <p> 
+                                At this point when you click 'Reserve' it's just making the
+                                booking in the local database and you'll see the dates are disabled in the datepicker.
+                                In the production site, clicking this button would take you to a booking 
+                                summary page. This page would show a detailed summary and allow the guest 
+                                to make payment and have a confirmation email sent to them.
+
+                                One important requirement to get this syncing with airBnb etc is that
+                                I need an api access from the channel manager 
+                                software in order to disable already booked dates, and also to register new bookings
+                           
+                                <h5>Things to do for production version:</h5>
+                                <ul>
+                                    <li>
+                                        Improve the header and homepage styling. Current form is just a basic prototype
+                                    </li>
+                                    <li>
+                                        Implement channel manager api queries to sync with airbnb, booking.com etc
+                                    </li>
+                                    <li>
+                                        Add a portal for staff to be able to add new villas and upload photos
+                                    </li>
+                                    <li>
+                                        implement payment processor on check out page
+                                    </li>
+                                    <li>
+                                         add an account page for guests to view upcoming and past bookings
+                                    </li>
+                                    <li>
+                                        make styleing mobile friendly
+                                    </li>
+                                    <li>
+                                        (and many more details that could be added, but the above would be a basic
+                                        functioning booking site)
+                                    </li>
+                                </ul>
+                                
+                        </p>
+                        </div>
+                        
+
+
+                    </div>
+
+                   
+                </div>
+            </div>
+          
+
+        </div>
+    </div>
+</div>
+
+
+
