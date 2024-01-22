@@ -43,6 +43,13 @@ namespace PalmVillas.Test.UnitTests
                 };
         }
 
+
+        [TearDown]
+        public void TearDown()
+        {
+            db.Dispose();
+        }
+
         [Test]
         [TestCaseSource(typeof(BookingUtilityNoConflictTestData), "TestCases")]
         public void IfConflictReturnTrue_NoConflict(Booking bookingToTest)

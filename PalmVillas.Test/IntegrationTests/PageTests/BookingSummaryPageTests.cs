@@ -44,6 +44,12 @@ namespace PalmVillas.Test.IntegrationTests.PageTests
             pageModel.Input = GetInput();
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            db.Dispose();
+        }
+
         [Test]
         public void OnGetPopulatePageModel()
         {
