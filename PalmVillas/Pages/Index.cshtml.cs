@@ -29,9 +29,7 @@ namespace PalmVillas.Pages
         private readonly IAccountDbService _accountDbService;
         private readonly ILogger<IndexModel> _logger;
         private readonly UserManager<User> _userManager;
-        private readonly IUserStore<User> _userStore;
-        private readonly IUserEmailStore<User> _emailStore;
-        private readonly IEmailSender _emailSender;
+       
         public IndexModel(
 
             UserManager<User> userManager,
@@ -41,7 +39,7 @@ namespace PalmVillas.Pages
             ILogger<IndexModel> logger)
         {
             _userManager = userManager;
-            _userStore = userStore;
+           
             _signInManager = signInManager;
             _accountDbService = accountDbService;
             _logger = logger;
