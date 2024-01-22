@@ -244,5 +244,4 @@ paket-files/
 .idea/
 *.sln.iml
 
-#sqlite
-*.db
+
