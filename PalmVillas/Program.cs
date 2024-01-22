@@ -18,8 +18,6 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using System.Data.Entity;
 
 
-
-
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PalmContextConnection") ?? throw new InvalidOperationException("Connection string 'PalmContextConnection' not found.");
 
