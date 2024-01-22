@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    var count = 0;
 }
 <br />
 <br />
@@ -28,6 +29,7 @@
         <tbody>
             @foreach (var item in Model.Villa)
             {
+                count++;
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
@@ -41,9 +43,12 @@
                     </td>
 
                     <td>
-                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        @if (count > 3)
+                        {
+                            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        }
 
-                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>
             }

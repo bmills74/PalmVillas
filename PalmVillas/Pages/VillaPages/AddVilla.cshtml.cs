@@ -63,7 +63,7 @@ namespace PalmVillas.Pages.VillaPages
             }
             Villa.Images = JsonSerializer.Serialize<List<string>>(fileNames);
             _villaDbService.AddVilla(Villa);
-            TempData["Message"] = "Villa successfully edited";
+            TempData["Message"] = "Villa successfully added";
             return new RedirectToPageResult("Index");
         }
 
